@@ -18,39 +18,28 @@ def primer_valor():
             return i
 
 def calcular_probabilidades(n,exitos):
-    # print('en calcular')
-    # print(exitos)
-    # print(n)
     prob=np.array([0.0,0.0,0.0])
     for i in range(3):
         prob[i] = exitos[i]/float(n)
-        # print(prob[i])
     return prob
 
 def converge(exitos,ant):
     conv = (np.subtract(ant,exitos) < 0.0000001)
-    #print(np.subtract(ant,exitos) < 0.00001)
     return(np.all(conv))
     
 def dos_consecutivos():
     n=0
     exitos=np.array([0,0,0])
     probActual=np.array([0,0,-1])
-    consecutivos=0
     probAnterior=np.array([0,0,0])
     vAnterior=primer_valor()
-    while not(converge(probActual, probAnterior)) or n < 10000:
-        print(n)
-        print(converge(probActual, probAnterior))
+    while not(converge(probActual, probAnterior)) or n < 400000:
         vActual=calc_sig_valor(vAnterior)
-        print("Ant: "+str(vAnterior)+"   Actual: "+str(vActual))
         probAnterior = probActual
         n+=1
         if (vAnterior==vActual):
             exitos[vActual] += 1
-            consecutivos += 1
             probActual = calcular_probabilidades(n,exitos)
-            print(probActual)
         
         vAnterior=vActual
     return probActual
