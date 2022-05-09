@@ -45,6 +45,3 @@ def dos_consecutivos():
     return probActual
 
 print(dos_consecutivos())
-
-
-        
